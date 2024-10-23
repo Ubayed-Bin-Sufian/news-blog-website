@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import Image from "../../Components/Image/Image";
 
-import firstImage from "../../assets/images/h104-696x464.jpg.webp";
-import secondImage from "../../assets/images/28-696x368.jpg.webp";
-import thirdImage from "../../assets/images/54-1-696x405.jpg.webp";
-import forthImage from "../../assets/images/43-2-696x464.jpg.webp";
+import firstImage from "../../assets/images/artificial-intelligence-new-technology-science-futuristic-abstract-human-brain-ai-technology-cpu-central-processor-unit-chipset-big-data-machine-learning-cyber-mind-domination-generative-ai-scaled-1-1500x1000.jpg";
+import secondImage from "../../assets/images/products.webp";
+import thirdImage from "../../assets/images/pngtree-business-meeting-room-dark-background-picture-image_2502832.jpg";
+import forthImage from "../../assets/images/Yann_Lecun_during_a_conference_at_EPFL_Lausanne_5_october_2018.webp";
 
 function Trending() {
 	const [bg_color, setbg_color] = useState("bg-[#222222] ");
 
 	return (
 		<>
-			<div className='flex justify-center md:justify-between'>
+			{/* <div className='flex justify-center md:justify-between'>
 				<div className='flex flex-col justify-center items-center md:flex-row p-3 md:p-5 gap-1 md:gap-3'>
 					<Link
 						className={
@@ -39,13 +39,13 @@ function Trending() {
 						<MdKeyboardArrowRight size={15} />
 					</Link>
 				</div>
-			</div>
+			</div> */}
 
-			<div className='flex flex-col md:flex-row gap-[2px]'>
+			<div className='mt-24 flex flex-col md:flex-row gap-[2px]'>
 				<div className='w-full h-[320px] md:w-[49%] md:h-[400px] lg:h-[470px]'>
 					<Image
 						image={firstImage}
-						heading={"TRENDING NOW"}
+						heading={"AI NEWS"}
 						content={
 							"WordPress News Magazine Charts the Most Chic and Fashionable Women of New York City"
 						}
@@ -69,7 +69,7 @@ function Trending() {
 						<div className='w-[340px] sm:w-[400px] md:w-1/2 h-full'>
 							<Image
 								image={thirdImage}
-								heading={"TRAVEL"}
+								heading={"COMPANIES"}
 								content={"Discover the Most Magical Sunset in Santorini"}
 								author={"Armin Vans"}
 								date={"August 7, 2019"}
@@ -78,7 +78,7 @@ function Trending() {
 						<div className='w-[340px] sm:w-[400px] md:w-1/2 h-full'>
 							<Image
 								image={forthImage}
-								heading={"REVIEWS"}
+								heading={"YANN LECUN"}
 								content={"Computer Filters Noise to Make You a Better Listener"}
 								author={"Armin Vans"}
 								date={"August 7, 2019"}

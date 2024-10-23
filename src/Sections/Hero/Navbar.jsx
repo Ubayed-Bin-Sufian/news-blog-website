@@ -6,12 +6,12 @@ import { IoCloseOutline, IoSearchOutline } from "react-icons/io5";
 import image from "../../assets/images/mobile-bg1.jpg";
 
 const headings = [
-	{ title: "NEWS" },
-	{ title: "FASHION" },
-	{ title: "GADGETS" },
-	{ title: "LIFESTYLE" },
-	{ title: "VIDEO" },
-	{ title: "FEATURES" },
+	{ title: "News" },
+	{ title: "Scientific Papers" },
+	{ title: "LinkedIn" },
+	{ title: "X (Twitter)" },
+	{ title: "GitHub" },
+	{ title: "Job Opportunites" },
 ];
 
 function Navbar() {
@@ -19,10 +19,10 @@ function Navbar() {
 	return (
 		<>
 			<div className='w-full shadow-md hidden md:block'>
-				<div className='mx-auto max-w-[1070px] flex flex-col px-10 lg:px-0'>
-					<div className='w-full'>
-						<div className='flex justify-between font-[600]'>
-							<div className='flex gap-4'>
+				<div className='mx-auto max-w-[1070px] flex-col px-10 lg:px-0 h-20'>
+					<div className='w-full h-full'>
+						<div className='flex justify-between flex items-center font-[600] h-full'>
+							<div className='flex gap-4 items-center'>
 								{headings.map((heading, index) => {
 									return (
 										<>
@@ -31,8 +31,8 @@ function Navbar() {
 												key={heading.title}
 												className={
 													index == 0
-														? "p-2 px-3 border-b-[#4db2ec] border-b-[3px] text-[14px] font-bold"
-														: "p-2 px-3 hover:border-b-[#4db2ec] hover:border-b-[3px] text-[14px] font-bold"
+														? "text-blue-500 hover:bg-blue-50 border-2 border-blue-300 rounded-lg px-4 py-2 text-lg font-medium transition duration-300"
+														: "text-blue-500 hover:bg-blue-50 border-2 border-blue-300 rounded-lg px-4 py-2 text-lg font-medium transition duration-300"
 												}>
 												<span>{heading.title}</span>
 											</Link>
@@ -41,7 +41,7 @@ function Navbar() {
 								})}
 							</div>
 							<div className=' font-normal flex items-center justify-center'>
-								<LuSearch size={20} />
+								<LuSearch size={30} />
 							</div>
 						</div>
 					</div>
