@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import Image from "../../Components/Image/Image";
 
-import firstImage from "../../assets/images/artificial-intelligence-new-technology-science-futuristic-abstract-human-brain-ai-technology-cpu-central-processor-unit-chipset-big-data-machine-learning-cyber-mind-domination-generative-ai-scaled-1-1500x1000.jpg";
+import firstImage from "../../assets/images/AI.jpg";
 import secondImage from "../../assets/images/products.webp";
 import thirdImage from "../../assets/images/pngtree-business-meeting-room-dark-background-picture-image_2502832.jpg";
 import forthImage from "../../assets/images/Yann_Lecun_during_a_conference_at_EPFL_Lausanne_5_october_2018.webp";
