@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import Image from "../../Components/Image/Image";
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from "../../Components/firebase";
 
 import firstImage from "../../assets/images/AI.jpg";
 import secondImage from "../../assets/images/products.webp";
@@ -10,6 +12,30 @@ import forthImage from "../../assets/images/Yann_Lecun_during_a_conference_at_EP
 
 function Trending() {
 	const [bg_color, setbg_color] = useState("bg-[#222222] ");
+
+	useEffect(() => {		
+		fetchDocumentData();		
+	  }, []);
+
+	const fetchDocumentData = async (heading) => {
+		
+		try {
+		  const docRef = doc(db, 'news_info', heading);
+		  const docSnap = await getDoc(docRef);
+	
+		  if (docSnap.exists()) {
+			const data = docSnap.data();
+			console.log(data)
+			
+		  } else {
+			console.log("No such document!");
+		  }	
+		  
+		} catch (error) {
+		  console.error("Error fetching document: ", error);
+		  
+		}
+	  };
 
 	return (
 		<>
