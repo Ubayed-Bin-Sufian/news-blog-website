@@ -17,15 +17,15 @@ function Trending() {
 		fetchDocumentData();		
 	  }, []);
 
-	const fetchDocumentData = async (heading) => {
+	const fetchDocumentData = async () => {
 		
 		try {
-		  const docRef = doc(db, 'news_info', heading);
+		  const docRef = doc(db, "news_info", "first_image");
 		  const docSnap = await getDoc(docRef);
 	
 		  if (docSnap.exists()) {
 			const data = docSnap.data();
-			console.log(data)
+			console.log("Document data:", data)
 			
 		  } else {
 			console.log("No such document!");
