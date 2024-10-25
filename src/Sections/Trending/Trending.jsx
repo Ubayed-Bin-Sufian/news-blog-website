@@ -11,31 +11,50 @@ import thirdImage from "../../assets/images/pngtree-business-meeting-room-dark-b
 import forthImage from "../../assets/images/Yann_Lecun_during_a_conference_at_EPFL_Lausanne_5_october_2018.webp";
 
 function Trending() {
-	const [bg_color, setbg_color] = useState("bg-[#222222] ");
+	const [bg_color, setbg_color] = useState("bg-[#222222] ")
+	const [author, setAuthor] = useState("")
+	const [content, setContent] = useState("")
+	const [date, setDate] = useState("")
+	const [heading, setHeading] = useState("")
+	const [image, setImage] = useState("")
 
 	useEffect(() => {		
-		fetchDocumentData();		
+		fetchDocumentData();	
 	  }, []);
 
 	const fetchDocumentData = async () => {
 		
 		try {
 		  const docRef = doc(db, "news_info", "first_image");
-		  const docSnap = await getDoc(docRef);
+		  const docSnap = await getDoc(docRef);		  
 	
 		  if (docSnap.exists()) {
 			const data = docSnap.data();
 			console.log("Document data:", data)
+
+			setAuthor(data.author)
+			setContent(data.content)
+			setDate(data.date)
+			setHeading(data.heading)
+			setImage(data.image)
 			
 		  } else {
 			console.log("No such document!");
 		  }	
 		  
 		} catch (error) {
-		  console.error("Error fetching document: ", error);
-		  
+		  console.error("Error fetching document: ", error);		  
 		}
 	  };
+
+		// Log state updates after they happen
+		useEffect(() => {
+			console.log("Updated author:", author);
+			console.log("Updated content:", content);
+			console.log("Updated date:", date);
+			console.log("Updated heading:", heading);
+			console.log("Updated image:", image);
+		}, [author, content, date, heading, image]);
 
 	return (
 		<>
@@ -70,13 +89,11 @@ function Trending() {
 			<div className='mt-24 flex flex-col md:flex-row gap-[2px]'>
 				<div className='w-full h-[320px] md:w-[49%] md:h-[400px] lg:h-[470px]'>
 					<Image
-						image={firstImage}
-						heading={"AI NEWS"}
-						content={
-							"WordPress News Magazine Charts the Most Chic and Fashionable Women of New York City"
-						}
-						author={"Armin Vans"}
-						date={"August 7, 2019"}
+						image={image}
+						heading={heading}
+						content={content}
+						author={author}
+						date={date}
 					/>
 				</div>
 				<div className='w-full h-[180px] md:w-[51%] md:h-[400px] lg:h-[470px] overflow-x-scroll md:overflow-hidden flex md:flex-col gap-[2px]'>
