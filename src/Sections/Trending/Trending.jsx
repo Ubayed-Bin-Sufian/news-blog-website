@@ -11,115 +11,158 @@ import thirdImage from "../../assets/images/Companies.jpg";
 import forthImage from "../../assets/images/Yann_Lecun.webp";
 
 function Trending() {
-	const [bg_color, setbg_color] = useState("bg-[#222222] ")
-	const [authorFirstImage, setAuthorFirstImage] = useState("")
-	const [contentFirstImage, setContentFirstImage] = useState("")
-	const [dateFirstImage, setDateFirstImage] = useState("")
-	const [headingFirstImage, setHeadingFirstImage] = useState("")
-	const [imageFirstImage, setImageFirstImage] = useState("")
 
-	const [authorSecondImage, setAuthorSecondImage] = useState("")
-	const [contentSecondImage, setContentSecondImage] = useState("")
-	const [dateSecondImage, setDateSecondImage] = useState("")
-	const [headingSecondImage, setHeadingSecondImage] = useState("")
-	const [imageSecondImage, setImageSecondImage] = useState("")
-
-	const [authorThirdImage, setAuthorThirdImage] = useState("")
-	const [contentThirdImage, setContentThirdImage] = useState("")
-	const [dateThirdImage, setDateThirdImage] = useState("")
-	const [headingThirdImage, setHeadingThirdImage] = useState("")
-	const [imageThirdImage, setImageThirdImage] = useState("")
-
-	const [authorFourthImage, setAuthorFourthImage] = useState("")
-	const [contentFourthImage, setContentFourthImage] = useState("")
-	const [dateFourthImage, setDateFourthImage] = useState("")
-	const [headingFourthImage, setHeadingFourthImage] = useState("")
-	const [imageFourthImage, setImageFourthImage] = useState("")
-
-	useEffect(() => {		
-		fetchDocumentData();	
+	const [imagesData, setImagesData] = useState([
+		{ author: '', content: '', date: '', heading: '', image: '' },
+		{ author: '', content: '', date: '', heading: '', image: '' },
+		{ author: '', content: '', date: '', heading: '', image: '' },
+		{ author: '', content: '', date: '', heading: '', image: '' },
+	  ]);
+	
+	  const imageDocs = ['first_image', 'second_image', 'third_image', 'fourth_image'];
+	
+	  useEffect(() => {
+		fetchAllImagesData();
 	  }, []);
-
-	const fetchDocumentData = async () => {
-		
+	
+	  const fetchAllImagesData = async () => {
+		const updatedImagesData = await Promise.all(imageDocs.map(fetchImageData));
+		setImagesData(updatedImagesData);
+	  };
+	
+	  const fetchImageData = async (docId) => {
 		try {
-
-			// FIRST IMAGE
-		  const docRefFirstImage = doc(db, "news_info", "first_image");
-		  const docSnapFirstImage = await getDoc(docRefFirstImage);		  
+		  const docRef = doc(db, 'news_info', docId);
+		  const docSnap = await getDoc(docRef);
 	
-		  if (docSnapFirstImage.exists()) {
-			const data = docSnapFirstImage.data();
-			console.log("Document data:", data)
-
-			setAuthorFirstImage(data.author)
-			setContentFirstImage(data.content)
-			setDateFirstImage(data.date)
-			setHeadingFirstImage(data.heading)
-			setImageFirstImage(data.image)
-			
+		  if (docSnap.exists()) {
+			const data = docSnap.data();
+			return {
+			  author: data.author || '',
+			  content: data.content || '',
+			  date: data.date || '',
+			  heading: data.heading || '',
+			  image: data.image || '',
+			};
 		  } else {
-			console.log("No such document!");
-		  }		  
-
-		  	// SECOND IMAGE
-		  const docRefSecondImage = doc(db, "news_info", "second_image");
-		  const docSnapSecondImage = await getDoc(docRefSecondImage);		  
-	
-		  if (docSnapSecondImage.exists()) {
-			const data = docSnapSecondImage.data();
-			console.log("Document data:", data)
-
-			setAuthorSecondImage(data.author)
-			setContentSecondImage(data.content)
-			setDateSecondImage(data.date)
-			setHeadingSecondImage(data.heading)
-			setImageSecondImage(data.image)
-			
-		  } else {
-			console.log("No such document!");
+			console.log(`No such document: ${docId}`);
+			return { author: '', content: '', date: '', heading: '', image: '' };
 		  }
-
-		  	// THIRD IMAGE
-		  const docRefThirdImage = doc(db, "news_info", "third_image");
-		  const docSnapThirdImage = await getDoc(docRefThirdImage);		  
-	
-		  if (docSnapThirdImage.exists()) {
-			const data = docSnapThirdImage.data();
-			console.log("Document data:", data)
-
-			setAuthorThirdImage(data.author)
-			setContentThirdImage(data.content)
-			setDateThirdImage(data.date)
-			setHeadingThirdImage(data.heading)
-			setImageThirdImage(data.image)
-			
-		  } else {
-			console.log("No such document!");
-		  }
-
-		  	// FOURTH IMAGE
-		  const docRefFourthImage = doc(db, "news_info", "fourth_image");
-		  const docSnapFourthImage = await getDoc(docRefFourthImage);		  
-	
-		  if (docSnapFourthImage.exists()) {
-			const data = docSnapFourthImage.data();
-			console.log("Document data:", data)
-
-			setAuthorFourthImage(data.author)
-			setContentFourthImage(data.content)
-			setDateFourthImage(data.date)
-			setHeadingFourthImage(data.heading)
-			setImageFourthImage(data.image)
-			
-		  } else {
-			console.log("No such document!");
-		  }
-		  
 		} catch (error) {
-		  console.error("Error fetching document: ", error);		  
+		  console.error(`Error fetching document ${docId}:`, error);
+		  return { author: '', content: '', date: '', heading: '', image: '' };
 		}
 	  };
+
+	// const [bg_color, setbg_color] = useState("bg-[#222222] ")
+	// const [authorFirstImage, setAuthorFirstImage] = useState("")
+	// const [contentFirstImage, setContentFirstImage] = useState("")
+	// const [dateFirstImage, setDateFirstImage] = useState("")
+	// const [headingFirstImage, setHeadingFirstImage] = useState("")
+	// const [imageFirstImage, setImageFirstImage] = useState("")
+
+	// const [authorSecondImage, setAuthorSecondImage] = useState("")
+	// const [contentSecondImage, setContentSecondImage] = useState("")
+	// const [dateSecondImage, setDateSecondImage] = useState("")
+	// const [headingSecondImage, setHeadingSecondImage] = useState("")
+	// const [imageSecondImage, setImageSecondImage] = useState("")
+
+	// const [authorThirdImage, setAuthorThirdImage] = useState("")
+	// const [contentThirdImage, setContentThirdImage] = useState("")
+	// const [dateThirdImage, setDateThirdImage] = useState("")
+	// const [headingThirdImage, setHeadingThirdImage] = useState("")
+	// const [imageThirdImage, setImageThirdImage] = useState("")
+
+	// const [authorFourthImage, setAuthorFourthImage] = useState("")
+	// const [contentFourthImage, setContentFourthImage] = useState("")
+	// const [dateFourthImage, setDateFourthImage] = useState("")
+	// const [headingFourthImage, setHeadingFourthImage] = useState("")
+	// const [imageFourthImage, setImageFourthImage] = useState("")
+
+	// useEffect(() => {		
+	// 	fetchDocumentData();	
+	//   }, []);
+
+	// const fetchDocumentData = async () => {
+		
+	// 	try {
+
+	// 		// FIRST IMAGE
+	// 	  const docRefFirstImage = doc(db, "news_info", "first_image");
+	// 	  const docSnapFirstImage = await getDoc(docRefFirstImage);		  
+	
+	// 	  if (docSnapFirstImage.exists()) {
+	// 		const data = docSnapFirstImage.data();
+	// 		console.log("Document data:", data)
+
+	// 		setAuthorFirstImage(data.author)
+	// 		setContentFirstImage(data.content)
+	// 		setDateFirstImage(data.date)
+	// 		setHeadingFirstImage(data.heading)
+	// 		setImageFirstImage(data.image)
+			
+	// 	  } else {
+	// 		console.log("No such document!");
+	// 	  }		  
+
+	// 	  	// SECOND IMAGE
+	// 	  const docRefSecondImage = doc(db, "news_info", "second_image");
+	// 	  const docSnapSecondImage = await getDoc(docRefSecondImage);		  
+	
+	// 	  if (docSnapSecondImage.exists()) {
+	// 		const data = docSnapSecondImage.data();
+	// 		console.log("Document data:", data)
+
+	// 		setAuthorSecondImage(data.author)
+	// 		setContentSecondImage(data.content)
+	// 		setDateSecondImage(data.date)
+	// 		setHeadingSecondImage(data.heading)
+	// 		setImageSecondImage(data.image)
+			
+	// 	  } else {
+	// 		console.log("No such document!");
+	// 	  }
+
+	// 	  	// THIRD IMAGE
+	// 	  const docRefThirdImage = doc(db, "news_info", "third_image");
+	// 	  const docSnapThirdImage = await getDoc(docRefThirdImage);		  
+	
+	// 	  if (docSnapThirdImage.exists()) {
+	// 		const data = docSnapThirdImage.data();
+	// 		console.log("Document data:", data)
+
+	// 		setAuthorThirdImage(data.author)
+	// 		setContentThirdImage(data.content)
+	// 		setDateThirdImage(data.date)
+	// 		setHeadingThirdImage(data.heading)
+	// 		setImageThirdImage(data.image)
+			
+	// 	  } else {
+	// 		console.log("No such document!");
+	// 	  }
+
+	// 	  	// FOURTH IMAGE
+	// 	  const docRefFourthImage = doc(db, "news_info", "fourth_image");
+	// 	  const docSnapFourthImage = await getDoc(docRefFourthImage);		  
+	
+	// 	  if (docSnapFourthImage.exists()) {
+	// 		const data = docSnapFourthImage.data();
+	// 		console.log("Document data:", data)
+
+	// 		setAuthorFourthImage(data.author)
+	// 		setContentFourthImage(data.content)
+	// 		setDateFourthImage(data.date)
+	// 		setHeadingFourthImage(data.heading)
+	// 		setImageFourthImage(data.image)
+			
+	// 	  } else {
+	// 		console.log("No such document!");
+	// 	  }
+		  
+	// 	} catch (error) {
+	// 	  console.error("Error fetching document: ", error);		  
+	// 	}
+	//   };
 
 	return (
 		<>
@@ -154,42 +197,42 @@ function Trending() {
 			<div className='mt-24 flex flex-col md:flex-row gap-[2px]'>
 				<div className='w-full h-[320px] md:w-[49%] md:h-[400px] lg:h-[470px]'>
 					<Image
-						image={imageFirstImage}
-						heading={headingFirstImage}
-						content={contentFirstImage}
-						author={authorFirstImage}
-						date={dateFirstImage}
+						image={imagesData[0].image}
+						heading={imagesData[0].heading}
+						content={imagesData[0].content}
+						author={imagesData[0].author}
+						date={imagesData[0].date}
 					/>
 				</div>
 				<div className='w-full h-[180px] md:w-[51%] md:h-[400px] lg:h-[470px] overflow-x-scroll md:overflow-hidden flex md:flex-col gap-[2px]'>
 					<div className='w-[400px] md:w-full h-full md:h-[248px] lg:h-[298px] gap[2px]'>
 						<div className='w-[340px] sm:w-[400px] h-full md:w-full'>
 							<Image
-								image={imageSecondImage}
-								heading={headingSecondImage}
-								content={contentSecondImage}
-								author={authorSecondImage}
-								date={dateSecondImage}
+								image={imagesData[1].image}
+								heading={imagesData[1].heading}
+								content={imagesData[1].content}
+								author={imagesData[1].author}
+								date={imagesData[1].date}
 							/>
 						</div>
 					</div>
 					<div className='flex w-[800px] md:w-full md:h-[150px] lg:h-[200px] gap-[2px]'>
 						<div className='w-[340px] sm:w-[400px] md:w-1/2 h-full'>
 							<Image
-								image={imageThirdImage}
-								heading={headingThirdImage}
-								content={contentThirdImage}
-								author={authorThirdImage}
-								date={dateThirdImage}
+								image={imagesData[2].image}
+								heading={imagesData[2].heading}
+								content={imagesData[2].content}
+								author={imagesData[2].author}
+								date={imagesData[2].date}
 							/>
 						</div>
 						<div className='w-[340px] sm:w-[400px] md:w-1/2 h-full'>
 							<Image
-								image={imageFourthImage}
-								heading={headingFourthImage}
-								content={contentFourthImage}
-								author={authorFourthImage}
-								date={dateFourthImage}
+								image={imagesData[3].image}
+								heading={imagesData[3].heading}
+								content={imagesData[3].content}
+								author={imagesData[3].author}
+								date={imagesData[3].date}
 							/>
 						</div>
 					</div>
