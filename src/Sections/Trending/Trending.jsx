@@ -4,6 +4,8 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import Image from "../../Components/Image/Image";
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from "../../Components/firebase";
+import { database } from "../../Components/firebase";
+import { ref, onValue } from "firebase/database";
 
 import firstImage from "../../assets/images/AI.jpg";
 import secondImage from "../../assets/images/Gadget_Apple_Vision_Pro.webp";
@@ -20,6 +22,19 @@ function Trending() {
 	  ]);
 	
 	  const imageDocs = ['first_image', 'second_image', 'third_image', 'fourth_image'];
+
+	  const [data, setData] = useState([]);
+
+		useEffect(() => {
+			const dataRef = ref(database, 'AI_news_content');
+
+			// Listen for data changes
+			onValue(dataRef, (snapshot) => {
+			const data = snapshot.val();
+			const formattedData = data ? Object.values(data) : [];
+			setData(formattedData);
+			});
+		}, []);
 	
 	  useEffect(() => {
 		fetchAllImagesData();
@@ -198,7 +213,7 @@ function Trending() {
 				<div className='w-full h-[320px] md:w-[49%] md:h-[400px] lg:h-[470px]'>
 					<Image
 						image={imagesData[0].image}
-						heading={imagesData[0].heading}
+						heading={data}
 						content={imagesData[0].content}
 						author={imagesData[0].author}
 						date={imagesData[0].date}
